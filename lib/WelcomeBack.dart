@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:project1/CompleteProfile.dart';
 import 'package:project1/ForgotPasswordPage.dart';
 
+import 'LogIn2.dart';
 import 'RegisterPage.dart';
 
 class WelcomeBack extends StatefulWidget {
@@ -68,8 +69,7 @@ class _WelcomeBackState extends State<WelcomeBack> {
 
 
 
-                Row(
-                  children: [
+
                     CheckboxListTile(
                             title: Text("Remmember me",style: TextStyle(fontWeight: FontWeight.w300,fontSize: 11),),
                             value: checkedValue,
@@ -83,29 +83,30 @@ class _WelcomeBackState extends State<WelcomeBack> {
                           ),
 
                     Align(
-                              // alignment: Al|ignment.bottomRight,
+                        alignment: Alignment.bottomRight,
 
-                              child:
-                              TextButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(builder: (context) => const ForgotPasswordPage()),
-                                    );
-                                  },
-                                  child: const Text(
-                                      "Forgot Password",
-                                      style: TextStyle(decoration:TextDecoration.underline ,color: Colors.grey,fontSize: 13, )
-                                  )
-                              )
-                          ),
-                  ],
-                ),
+                        child:
+                        TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => const ForgotPasswordPage()),
+                              );
+                              },
+                            child: const Text(
+                                "Forgot Password",
+                                style: TextStyle(decoration:TextDecoration.underline ,color: Colors.grey,fontSize: 13, )
+                            )
+                        )
+                    ),
 
 
                 MaterialButton(
                   onPressed:() {
-                   },
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const LogIn2()),
+                    );},
                   shape: StadiumBorder(),
                   color: Colors.orange.shade800,
                   textColor: Colors.white,
@@ -134,7 +135,6 @@ class _WelcomeBackState extends State<WelcomeBack> {
                 ],
               ),
             ),
-
               ],
             ),
           ),

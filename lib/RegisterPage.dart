@@ -95,38 +95,20 @@ class _RegisterState extends State<Register> {
                     minWidth: 500,
 
                   ),
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 50),
 
                   Row(
-                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      MaterialButton(
-                        onPressed:() {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const WelcomePage()),
-                          );
-                        },
-                        child:
-                        SvgPicture.asset("assets/icons/linkedin.svg",colorFilter: ColorFilter.mode(Colors.blue, BlendMode.srcIn),width: 12,height: 12,),
+                      SizedBox(width: 100,),
+                      SvgPicture.asset("assets/Icons/google-icon.svg",width: 18,),
+                      SizedBox(width: 45,),
+                      SvgPicture.asset("assets/Icons/facebook-2.svg",width: 12,),
+                      SizedBox(width: 45,),
+                      SvgPicture.asset("assets/Icons/twitter.svg",width: 20,),
                        // minWidth: 40,
-                      ),
-
-                      MaterialButton(
-                        onPressed:() {},
-                        child:  SvgPicture.asset("assets/icons/google-icon.svg",colorFilter: ColorFilter.mode(Colors.blue, BlendMode.srcIn),width: 12,height: 12,),
-                        //minWidth: 40,
-
-                      ),
-
-                      MaterialButton(
-                        onPressed:() {},
-                        child:  SvgPicture.asset('assets/icons/twitter.svg',width: 12,height: 12,),
-                        height: 20,
-                       // minWidth: ,
-                      ),
                     ],
                   ),
+                  const SizedBox(height: 20),
                   const Text("by continuing your confirm that you agree ",textAlign: TextAlign.center, style: TextStyle(
                         color: Colors.grey,
                         fontSize: 14,
