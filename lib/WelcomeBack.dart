@@ -35,7 +35,7 @@ class _WelcomeBackState extends State<WelcomeBack> {
                         icon: Icon(Icons.arrow_back),
                         onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => const CompleteProfile()),);}
                     )),
-                const SizedBox(height: 15,),
+                // const SizedBox(height: 15,),
                 const Text("Welcome Back",style: TextStyle( fontSize: 28)),
                 const SizedBox(height: 5),
                 const Text("Sign in with your email and password \n or continue with social media", style: TextStyle(color: Colors.grey, fontSize: 12, fontWeight: FontWeight.w500),textAlign: TextAlign.center,),
