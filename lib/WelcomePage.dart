@@ -32,7 +32,7 @@ class _WelcomePageState extends State<WelcomePage> {
         child: Column(
           children: [
             const Text("TOKOTO", style: TextStyle(color: Color(0xFFff7643), fontSize: 32, fontFamily: "Muli")),
-            const Text("Welcome to Tokoto, Let's shop!", style: TextStyle(fontWeight: FontWeight.w300,fontSize: 13),),
+            // const Text("Welcome to Tokoto, Let's shop!", style: TextStyle(fontWeight: FontWeight.w300,fontSize: 13),),
             SizedBox(height: 20,),
             // Image.asset("assets/images/splash_1.png",width: 230,height: 400,),
 
