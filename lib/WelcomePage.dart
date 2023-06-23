@@ -32,23 +32,23 @@ class _WelcomePageState extends State<WelcomePage> {
         child: Column(
           children: [
             const Text("TOKOTO", style: TextStyle(color: Color(0xFFff7643), fontSize: 32, fontFamily: "Muli")),
-            // const Text("Welcome to Tokoto, Let's shop!", style: TextStyle(fontWeight: FontWeight.w300,fontSize: 13),),
+            const Text("Welcome to Tokoto, Let's shop!", style: TextStyle(fontWeight: FontWeight.w300,fontSize: 13),),
             SizedBox(height: 20,),
             // Image.asset("assets/images/splash_1.png",width: 230,height: 400,),
 
-            // SizedBox(
-            //   width: 330,
-            //   height: 320,
-            //   child: PageView.builder(
-            //
-            //     controller: controller,
-            //     itemCount: 3,
-            //     itemBuilder: (_, index) => Container(
-            //       margin: EdgeInsets.only(right: 20,left: 35,),
-            //       decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/splash_${index+1}.png"),fit: BoxFit.fitWidth)),
-            //     ),
-            //   ),
-            // ),
+            SizedBox(
+              width: 330,
+              height: 320,
+              child: PageView.builder(
+
+                controller: controller,
+                itemCount: 3,
+                itemBuilder: (_, index) => Container(
+                  margin: EdgeInsets.only(right: 20,left: 35,),
+                  decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/splash_${index+1}.png"),fit: BoxFit.fitWidth)),
+                ),
+              ),
+            ),
             SmoothPageIndicator(controller: controller, count: 3,effect: ExpandingDotsEffect(activeDotColor:Color(0XFFff7643),dotColor: Colors.grey.shade200,dotHeight: 6,dotWidth: 7),),
 
             SizedBox(height: 120,),
