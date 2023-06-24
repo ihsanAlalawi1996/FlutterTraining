@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
+import 'package:project1/Home/HomePage.dart';
 
 class LogIn2 extends StatefulWidget {
   const LogIn2({Key? key}) : super(key: key);
@@ -95,7 +96,9 @@ class _LogIn2State extends State<LogIn2> {
                         ),
                         width: 250,
                         child: MaterialButton(
-                          onPressed: (){},
+                          onPressed: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePage() ));
+                          },
                           textColor: Colors.white,
                           child: (
                           const Text("Login",style: TextStyle(color: Colors.white,fontSize: 19))

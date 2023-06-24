@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:project1/RegisterPage.dart';
 import 'package:project1/WelcomePage.dart';
 import 'package:project1/loginPage.dart';
-import 'package:project1/test1.dart';
 import 'LogIn2.dart';
 import 'loginPage.dart';
 void main(){

@@ -50,7 +50,8 @@ class _WelcomePageState extends State<WelcomePage> {
             SmoothPageIndicator(controller: controller, count: 3,effect: ExpandingDotsEffect(activeDotColor:Color(0XFFff7643),dotColor: Colors.grey.shade200,dotHeight: 6,dotWidth: 7),),
 
             SizedBox(height: 120,),
-            MaterialButton(onPressed: (){
+            MaterialButton(
+              onPressed: (){
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const Register()),
