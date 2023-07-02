@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:project1/Home/DetailsPage.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -285,20 +286,25 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           Column(
                             children: [
-                              Container(
-                                width: 130,
-                                height: 130,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey.shade200,
-                                  borderRadius: BorderRadius.circular(15),
-                                  image: const DecorationImage(
-                                    image: AssetImage('assets/images/Image Popular Product 1.png',),
-                                    scale: 4 ,
+                              GestureDetector(
+                                onTap:(){
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => const DetailsPage() ));
+                                },
+                                child: Container(
+                                  width: 130,
+                                  height: 130,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey.shade200,
+                                    borderRadius: BorderRadius.circular(15),
+                                    image: const DecorationImage(
+                                      image: AssetImage('assets/images/Image Popular Product 1.png',),
+                                      scale: 4 ,
+                                    ),
                                   ),
                                 ),
                               ),
                               const SizedBox(height: 11,),
-                              const Text("Wireless Controller\nfor PS4",style: TextStyle(fontSize: 11),),
+                              const Text("Wireless Controller\nfor PS4\u2122",style: TextStyle(fontSize: 11),),
                               const SizedBox(height: 5,),
                               Row(
                                 //crossAxisAlignment: CrossAxisAlignment.start,

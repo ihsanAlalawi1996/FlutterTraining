@@ -13,15 +13,7 @@ const MyApp({Key? key}) : super(key: key);
 
 @override
 Widget build(BuildContext context) {
-  return  MaterialApp(
-    theme: ThemeData(
-      primarySwatch: Colors.blue,
-      appBarTheme: AppBarTheme(
-        iconTheme: IconThemeData(color: Colors.black),
-        color: Colors.deepPurpleAccent, //<-- SEE HERE
-      ),
-    ),
-    home: WelcomePage(),
+  return  const MaterialApp(home: WelcomePage(),
 
 );
 }
