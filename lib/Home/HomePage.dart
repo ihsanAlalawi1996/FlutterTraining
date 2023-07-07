@@ -110,7 +110,7 @@ class _HomePageState extends State<HomePage> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Center(
-                          child:  SvgPicture.asset("assets/Icons/Flash Icon.svg",width: 22,color: const Color(0xFFc88b6c)),
+                          child:  SvgPicture.asset("assets/Icons/Flash Icon.svg",width: 22),
                         ),
                       ),
                       Container(
@@ -418,11 +418,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ],
                       ),
-
-
                   ),
-
-
                 ],
               ),
             ),
