@@ -1,4 +1,4 @@
-import 'package:project1/RegisterPage.dart';
+import 'package:project1/Pages/RegisterPage.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

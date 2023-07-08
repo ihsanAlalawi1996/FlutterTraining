@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:project1/RegisterPage.dart';
-import 'package:project1/WelcomeBack.dart';
+import 'package:project1/Pages/RegisterPage.dart';
+import 'package:project1/Pages/WelcomeBack.dart';
 
 class CompleteProfile extends StatefulWidget {
   const CompleteProfile({Key? key}) : super(key: key);

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:project1/LogIn2.dart';
-import 'package:project1/WelcomeBack.dart';
+import 'package:project1/Pages/LogIn2.dart';
+import 'package:project1/Pages/WelcomeBack.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({Key? key}) : super(key: key);

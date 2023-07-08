@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:project1/Home/DetailsPage.dart';
+import 'package:http/http.dart'as http;
+import 'dart:convert';
+import '../Models/Products.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -13,6 +16,29 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   PageController controller = new PageController(viewportFraction: 0.8);
 
+  late Future<List<Products>> futureAlbum ;
+
+//second step  make  network request
+//convert http response inside the album
+  Future<List<Products>>fetchAlbum() async{
+    final url = Uri.parse('https://fakestoreapi.com/products');
+    var response = await http.get(url);
+
+    if(response.statusCode == 200){
+      var decodeData = json.decode(response.body) as List<dynamic>;
+      List<Products>products = decodeData.map((json) => Products.fromJson(json)).toList();
+      return products;
+      // return Album.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception("failed to load album");
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    futureAlbum = fetchAlbum();
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -30,6 +56,7 @@ class _HomePageState extends State<HomePage> {
 
               child: Column(
                 children: [
+                  // search bar ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                   Row(
                     children: [
 
@@ -75,6 +102,7 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                   const SizedBox(height: 25,),
+                  // Cashback //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                   Container(
                     padding: const EdgeInsets.fromLTRB(25, 15, 20, 8),
                     alignment: Alignment.topLeft,
@@ -99,6 +127,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   const SizedBox(height: 30,),
+                  // Row if Icons //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -159,6 +188,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ],
                   ),
+                  // Row of icons labels ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -201,6 +231,7 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                   const SizedBox(height: 8,),
+                  // row of special for you ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                   Row(
                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                    children:  [
@@ -211,6 +242,7 @@ class _HomePageState extends State<HomePage> {
                    ],
                  ),
                   const SizedBox(height: 4,),
+                  // Row Of Special Images ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child:  Row(
@@ -270,6 +302,7 @@ class _HomePageState extends State<HomePage> {
 
                   ),
                   const SizedBox(height: 15,),
+                  // row of Popular products ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children:  [
@@ -280,145 +313,106 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                   const SizedBox(height: 11,),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child:  Row(
-                        children: [
-                          Column(
-                            children: [
-                              GestureDetector(
-                                onTap:(){
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => const DetailsPage() ));
-                                },
-                                child: Container(
+                  // Row Of Popular Products Images ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                  Align(
+                      alignment: Alignment.centerLeft,
+                    child: Container(
+                      height: 200,
+                      child: FutureBuilder(
+                        future: futureAlbum,
+                        builder: (context,snapshot){
+                          if (snapshot.hasData){
+                            var data = snapshot!.data;
+                            return ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: data!.length,
+                                itemBuilder: (context, index) => Container(
+                                  margin: EdgeInsets.only(left: 15),
+
                                   width: 130,
-                                  height: 130,
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey.shade200,
-                                    borderRadius: BorderRadius.circular(15),
-                                    image: const DecorationImage(
-                                      image: AssetImage('assets/images/Image Popular Product 1.png',),
-                                      scale: 4 ,
-                                    ),
+                                  child: Column(
+                                    children: [
+                                      GestureDetector(
+                                        onTap:(){
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => const DetailsPage()),
+                                          );
+                                        },
+
+                                        child: Container(
+                                          width: 140,
+                                          height: 100,
+                                          padding: EdgeInsets.all(10),
+                                          decoration: BoxDecoration(
+
+                                            color: Colors.grey.shade200,
+                                            borderRadius: BorderRadius.circular(15),
+                                          ),
+
+                                          child: Image.network(data![index].image,),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 10,),
+                                      Text(data![index].title,overflow: TextOverflow.clip,maxLines: 2,style: TextStyle(fontSize:  12)),
+                                      Row(
+                                        //crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(data![index].price.toString(),style: TextStyle(fontSize:  16,color: Colors.orange.shade800,fontWeight: FontWeight.bold),),
+                                          const SizedBox(width: 15,),
+                                          CircleAvatar(
+                                              radius: 15,
+                                              backgroundColor: Colors.grey.shade200,
+                                              child: IconButton(onPressed: (){}, icon: SvgPicture.asset("assets/Icons/Heart Icon_2.svg",colorFilter: const ColorFilter.mode(Colors.grey, BlendMode.srcIn))))
+                                        ],
+                                      )
+                                    ],
                                   ),
-                                ),
-                              ),
-                              const SizedBox(height: 11,),
-                              const Text("Wireless Controller\nfor PS4\u2122",style: TextStyle(fontSize: 11),),
-                              const SizedBox(height: 5,),
-                              Row(
-                                //crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text("\$64.99",style: TextStyle(fontSize: 16,color: Colors.orange.shade800,fontWeight: FontWeight.bold),),
-                                  const SizedBox(width: 35,),
-                                  CircleAvatar(
-                                      radius: 15,
-                                      backgroundColor: Colors.deepOrangeAccent.withOpacity(.1),
-                                      child: IconButton(onPressed: (){}, icon: SvgPicture.asset("assets/Icons/Heart Icon_2.svg",colorFilter: const ColorFilter.mode(Colors.redAccent, BlendMode.srcIn))))
-                                ],
-                              )
-                            ],
-                          ),
-                          const SizedBox(width: 20,),
-                          Column(
-                            children: [
-                              Container(
-                                width: 130,
-                                height: 130,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey.shade200,
-                                  borderRadius: BorderRadius.circular(15),
-                                  image: const DecorationImage(
-                                    image: AssetImage('assets/images/Image Popular Product 2.png',),
-                                    scale: 4 ,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 5,),
-                              const Text("Nike Sport White -\nMan Pants",style: TextStyle(fontSize: 11),),
-                              const SizedBox(height: 11,),
-                              Row(
-                                //crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text("\$50.5",style: TextStyle(fontSize:  16,color: Colors.orange.shade800,fontWeight: FontWeight.bold),),
-                                  const SizedBox(width: 40,),
-                                  CircleAvatar(
-                                      radius: 15,
-                                      backgroundColor: Colors.grey.shade200,
-                                      child: IconButton(onPressed: (){}, icon: SvgPicture.asset("assets/Icons/Heart Icon_2.svg",colorFilter: const ColorFilter.mode(Colors.grey, BlendMode.srcIn))))
-                                ],
-                              )
-                            ],
-                          ),
-                          const SizedBox(width: 20,),
-                          Column(
-                            children: [
-                              Container(
-                                width: 130,
-                                height: 130,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey.shade200,
-                                  borderRadius: BorderRadius.circular(15),
-                                  image: const DecorationImage(
-                                    image: AssetImage('assets/images/glap.png',),
-                                    scale: 4 ,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 5,),
-                              const Text("Gloves Half Finger -\nPolygon ",style: TextStyle(fontSize: 11),),
-                              const SizedBox(height: 11,),
-                              Row(
-                                //crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text("\$36.99",style: TextStyle(fontSize:  16,color: Colors.orange.shade800,fontWeight: FontWeight.bold),),
-                                  const SizedBox(width:40,),
-                                  CircleAvatar(
-                                      radius: 15,
-                                      backgroundColor: Colors.grey.shade200,
-                                      child: IconButton(onPressed: (){}, icon: SvgPicture.asset("assets/Icons/Heart Icon_2.svg",colorFilter: const ColorFilter.mode(Colors.grey, BlendMode.srcIn))))
-                                ],
-                              )
-                            ],
-                          ),
-                          const SizedBox(width: 20,),
-                          Column(
-                            children: [
-                              Container(
-                                width: 130,
-                                height: 130,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey.shade200,
-                                  borderRadius: BorderRadius.circular(15),
-                                  image: const DecorationImage(
-                                    image: AssetImage('assets/images/Image Popular Product 3.png',),
-                                    scale: 4 ,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 5,),
-                              const Text("Cycling Helmet -\nRed and Yellow",style: TextStyle(fontSize: 11),),
-                              const SizedBox(height: 11,),
-                              Row(
-                                //crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text("\$12.50",style: TextStyle(fontSize: 17,color: Colors.orange.shade800,fontWeight: FontWeight.bold),),
-                                  const SizedBox(width: 30,),
-                                  CircleAvatar(
-                                      radius: 15,
-                                      backgroundColor: Colors.grey.shade200,
-                                      child: IconButton(onPressed: (){}, icon: SvgPicture.asset("assets/Icons/Heart Icon_2.svg",colorFilter: const ColorFilter.mode(Colors.grey, BlendMode.srcIn))))
-                                ],
-                              )
-                            ],
-                          ),
-                        ],
+                                )
+                            );
+                            // return Text(data!.length.title);
+                          }
+                          else if (snapshot.hasError) {return const Icon(Icons.error);}
+                          else {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          }
+                        },
                       ),
+                    ),
                   ),
+                  // Column(
+                  //   children: [
+                  //     Container(
+                  //       width: 130,
+                  //       height: 130,
+                  //       decoration: BoxDecoration(
+                  //         color: Colors.grey.shade200,
+                  //         borderRadius: BorderRadius.circular(15),
+                  //         image: const DecorationImage(
+                  //           image: AssetImage('assets/images/Image Popular Product 2.png',),
+                  //           scale: 4 ,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //     const SizedBox(height: 5,),
+                  //     const Text("Nike Sport White -\nMan Pants",style: TextStyle(fontSize: 11),),
+                  //     const SizedBox(height: 11,),
+                  //     Row(
+                  //       //crossAxisAlignment: CrossAxisAlignment.start,
+                  //       mainAxisAlignment: MainAxisAlignment.start,
+                  //       children: [
+                  //         Text("\$50.5",style: TextStyle(fontSize:  16,color: Colors.orange.shade800,fontWeight: FontWeight.bold),),
+                  //         const SizedBox(width: 40,),
+                  //         CircleAvatar(
+                  //             radius: 15,
+                  //             backgroundColor: Colors.grey.shade200,
+                  //             child: IconButton(onPressed: (){}, icon: SvgPicture.asset("assets/Icons/Heart Icon_2.svg",colorFilter: const ColorFilter.mode(Colors.grey, BlendMode.srcIn))))
+                  //       ],
+                  //     )
+                  //   ],
+                  // ),
                 ],
               ),
             ),

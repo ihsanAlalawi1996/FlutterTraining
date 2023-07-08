@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:project1/CompleteProfile.dart';
-import 'package:project1/LogIn2.dart';
-import 'package:project1/WelcomePage.dart';
+import 'package:project1/Pages/CompleteProfile.dart';
+import 'package:project1/Pages/LogIn2.dart';
+import 'package:project1/Pages/WelcomePage.dart';
 
 
 class Register extends StatefulWidget {
